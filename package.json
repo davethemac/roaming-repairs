@@ -1,0 +1,19 @@
+{
+  "name": "roaming-repairs",
+  "version": "1.0.0",
+  "description": "roaming repair js test",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "karma": "^1.7.0",
+    "karma-coverage": "^1.1.1",
+    "karma-firefox-launcher": "^1.0.1",
+    "mocha": "^3.4.2",
+    "qunitjs": "^2.3.3"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "davethemac",
+  "license": "ISC"
+}

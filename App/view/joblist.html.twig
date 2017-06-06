@@ -1,0 +1,13 @@
+{# empty Twig template #}
+<script id="job-list-tpl" type="text/template">
+    <div class="container">
+        <ul>
+        {% verbatim %}
+        {{#each jobs}}
+            <li>{{this.description}}<br>
+            <a href="#job/{{this.id}}">view</a></li>
+        {{/each}}
+        {% endverbatim %}
+        </ul>
+    </div>
+</script>

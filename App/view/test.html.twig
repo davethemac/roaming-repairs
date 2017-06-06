@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+{# empty Twig template #}
+{% block title %}Active Job Form{% endblock %}
+{% block content %}
+    {% include 'partsused.html.twig' %}
+{% endblock %}
+{% block footerscripts %}
+        <script src="/js/router.js"></script>
+        <script src="/js/testdata.js"></script>
+        <!-- Web Storage -->
+        <script src="/js/WebStorage/WebStorageService.js"></script>
+        <script src="/js/ConnectionSensor.js"></script>
+        <script src="/js/SynchManager.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+<script src="/js/jquery.auto-complete.js" ></script>
+<!-- <script src="/js/skip_or_fill_minimum.js" ></script>-->
+        <script src="/js/PartsUsedView.js"></script>
+        <script src="/js/ActiveJobView.js"></script>
+        <script src="/js/JobSearchView.js"></script>
+        <script src="/js/JobListView.js"></script>
+<script src="/js/apptest.js" ></script>
+<script type="text/javascript">
+    var job_form_rules = {{ rules|raw }};
+    var job_form_messages = {{ msgs|raw }};
+</script>
+{% endblock %}

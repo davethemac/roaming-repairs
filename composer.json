@@ -1,0 +1,17 @@
+{
+    "require": {
+        "silex/silex": "~2.0",
+        "dompdf/dompdf": "^0.7.0",
+        "symfony/security": "^3.1",
+        "twig/twig": "^1.24",
+        "symfony/form": "^3.1",
+        "symfony/validator": "^3.1",
+        "symfony/config": "^3.1",
+        "symfony/yaml": "^3.1",
+        "symfony/twig-bridge": "^3.1",
+        "symfony/security-csrf": "^3.1",
+        "swiftmailer/swiftmailer": "^5.4",
+        "phpunit/phpunit": "^6.1",
+        "phpmd/phpmd": "^2.6"
+    }
+}

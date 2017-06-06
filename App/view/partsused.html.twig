@@ -1,0 +1,49 @@
+{# empty Twig template #}
+<script id="parts-used-tpl" type="text/template">
+    <div class="row">
+        <input type="hidden" name="parts_list_count" id="parts_list_count" value="{% if job.partsUsed|length > 0 %}{{ job.partsUsed|length }}{% else %}1{% endif %}">
+        <table id="parts_list" class="table">
+            <thead>
+                <tr>
+                    <th class="col-sm-2">Part No</th>
+                    <th class="col-sm-9">Description</th>
+                    <th class="col-sm-1">Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% verbatim %}{{#each partsUsed}}{% endverbatim %}
+                <tr id="part_used_row_{% verbatim %}{{@index}}{% endverbatim %}">
+                    <td>
+                        <div class="form-group">
+                        {% verbatim %}
+                            <input class="form-control part_no part_used_elem part_used_{{@index}}" id="part_no_{{@index}}" name="part_no_{{@index}}" value="{{this.part_number}}">
+                        {% endverbatim %}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                        {% verbatim %}
+                            <textarea class="form-control part_used_elem part_used_{{@index}}" id="part_desc_{{@index}}" name="part_desc_{{@index}}">{{this.description}}</textarea>
+                        {% endverbatim %}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                        {% verbatim %}
+                            <input class="form-control part_used_elem part_used_{{@index}}" id="part_quantity_{{@index}}" name="part_quantity_{{@index}}" value="{{this.quantity}}">
+                        {% endverbatim %}
+                        </div>
+                    </td>
+                </tr>
+            {% verbatim %}{{/each}}{% endverbatim %}
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="form-group">
+                <button id="add_part" class="btn btn-info pull-right" type="button">Add Part</button>
+            </div>
+        </div>
+    </div>
+</script>

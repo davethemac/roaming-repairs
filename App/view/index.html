@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Application Cache Local Storage Experiment</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    </head>
+    <body>
+        <script id="search-jobs-tpl" type="text/template">
+            <form>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label for="user">Customer</label>
+                                <select class="form-control" id="user" name="user">
+                                    <option value="0">Select</option>
+                                    {{#each users}}
+                                    <option value="{{this.id}}" {{#if this.selected}}selected{{/if}} >{{this.username}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <button class="form-control" id="display" name="display" value="">Display</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </script>
+        <script id="active-job-tpl" type="text/template">
+            <form>
+                <div class="container">
+                    <!--
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label for=""></label>
+                                <input class="form-control" id="" name="" value="">
+                            </div>
+                        </div>
+                    -->
+                    <div class="row">
+                        <div class="col-lg-8">
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="reference_no">Reference No</label>
+                                <input class="form-control" id="reference_no" name="reference_no" value="{{job.reference_no}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label for="customer">Customer</label>
+                                <select class="form-control" id="customer" name="customer">
+                                    <option value="0">Select</option>
+                                    {{#each customers}}
+                                    <option value="{{this.id}}" {{#if this.selected}}selected{{/if}} >{{this.name}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label for="mileage">Mileage</label>
+                                <select class="form-control" id="mileage" name="mileage">
+                                    {{#each mileage}}
+                                    <option id="{{this.id}}">{{this.value}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <textarea class="form-control" id="description" name="description">{{job.description}}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label for="job_date">Job Date</label>
+                                <input class="form-control" id="job_date" name="job_date" value="{{job.date}}">
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label for="start_time">Start Time</label>
+                                <input class="form-control" id="start_time" name="start_time" value="{{job.start_time}}">
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label for="end_date">End Time</label>
+                                <input class="form-control" id="end_time" name="end_time" value="{{job.end_time}}">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="workers">Workers</label>
+                                <select class="form-control" id="workers" name="workers[]" multiple>
+                                    {{#each workers}}
+                                    <option value="{{this.id}}" {{#if this.selected}}selected{{/if}} >{{this.firstname}} {{this.lastname}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label>Job Complete</label>
+                                <label for="job_complete_yes">Yes</label>
+                                <input type="radio" id="job_complete_yes" name="job_complete" {{#if job.is_complete}}checked{{/if}} value="1">
+                                <label for="">No</label>
+                                <input type="radio" id="job_complete_no" name="job_complete" {{#unless job.is_complete}}checked{{/unless}} value="0">
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label>Parlour Test</label>
+                                <label for="">Yes</label>
+                                <input type="radio" id="parlour_test_yes" name="parlour_test" {{#if job.parlour_test}}checked{{/if}} value="1">
+                                <label for="">No</label>
+                                <input type="radio" id="parlour_test_no" name="parlour_test" {{#unless job.parlour_test}}checked{{/unless}} value="0">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="col-lg-2">Part No</th>
+                                    <th class="col-lg-6">Description</th>
+                                    <th class="col-lg-1">Quantity</th>
+                                    <th class="col-lg-3">Office Use Only</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <input class="form-control" id="part_no_" name="part_no_" value="">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <textarea class="form-control" id="part_desc_" name="part_desc_"></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <input class="form-control" id="part_quantity_" name="part_quantity_" value="">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <input style="width: 30%;" id="office_col_a_" name="office_col_a_" value="">
+                                            <input style="width: 30%;" id="office_col_b_" name="office_col_b_" value="">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </form>
+        </script>
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+        <script src="js/router.js"></script>
+        <script src="js/testdata.js"></script>
+        <!-- Web Storage -->
+        <script src="js/WebStorage/WebStorageService.js"></script>
+        <!-- <script src="js/WebStorage/CustomerService.js"></script>
+        <script src="js/WebStorage/WorkerService.js"></script>
+        <script src="js/WebStorage/PartService.js"></script>
+        <script src="js/WebStorage/PartUsedService.js"></script>
+        <script src="js/WebStorage/JobWorkerService.js"></script>
+        <script src="js/WebStorage/JobService.js"></script>
+        <script src="js/WebStorage/UserService.js"></script> -->
+        <!-- Web SQL Database -->
+        <script src="js/WebSQL/CustomerService.js"></script>
+        <script src="js/WebSQL/WorkerService.js"></script>
+        <script src="js/WebSQL/PartService.js"></script>
+        <script src="js/WebSQL/PartUsedService.js"></script>
+        <script src="js/WebSQL/JobWorkerService.js"></script>
+        <script src="js/WebSQL/JobService.js"></script>
+        <script src="js/WebSQL/UserService.js"></script>
+        <!-- IndexedDB -->
+        <script src="js/IndexedDB/CustomerService.js"></script>
+        <script src="js/IndexedDB/WorkerService.js"></script>
+        <script src="js/IndexedDB/PartService.js"></script>
+        <script src="js/IndexedDB/PartUsedService.js"></script>
+        <script src="js/IndexedDB/JobWorkerService.js"></script>
+        <script src="js/IndexedDB/JobService.js"></script>
+        <script src="js/IndexedDB/UserService.js"></script>
+        
+        <script src="js/ConnectionSensor.js"></script>
+        <script src="js/SynchManager.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+        <script src="js/ActiveJobView.js"></script>
+        <script src="js/app.js"></script>
+    </body>
+</html>

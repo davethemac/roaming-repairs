@@ -1,0 +1,43 @@
+{# empty Twig template #}
+<script id="search-jobs-tpl" type="text/template">
+    <form>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label for="user">User</label>
+                        <select class="form-control" id="user" name="user">
+                            <option value="0">Select</option>
+                            {% verbatim %}
+                            {{#each users}}
+                            <option value="{{this.id}}" {{#if this.selected}}selected{{/if}} >{{this.username}}</option>
+                            {{/each}}
+                            {% endverbatim %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label for="user">Customer</label>
+                        <select class="form-control" id="customer" name="customer">
+                            <option value="0">Select</option>
+                            {% verbatim %}
+                            {{#each customers}}
+                            <option value="{{this.id}}" {{#if this.selected}}selected{{/if}} >{{this.name}}</option>
+                            {{/each}}
+                            {% endverbatim %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <button class="form-control" id="display" name="display" value="">Display</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="content"></div>
+            </div>
+        </div>
+    </form>
+</script>

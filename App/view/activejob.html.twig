@@ -1,0 +1,150 @@
+{# empty Twig template #}
+<script id="active-job-tpl" type="text/template">
+    <div class="container">
+        <form enctype="application/x-www-form-urlencoded" method="post" id="job_form">
+
+            <div class="row">
+                <div class="col-lg-6 text-right">
+                    <h2>Job Sheet</h2>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label for="reference_no">Reference No.</label>
+                        <input class="form-control" type="text" name="reference_no" id="reference_no" value="{% verbatim %}{{ job.referenceNo }}{% endverbatim %}">
+                    </div>
+                </div>
+            </div>
+						
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label for="customer">Customer</label>
+                        <select class="form-control" name="customer" id ="customer">
+                            <option value="0">select customer</option>
+                            {% verbatim %}
+                            {{#each customers}}
+                            <option value="{{this.id}}" {{#if this.selected}}selected{{/if}} >{{this.name}}</option>
+                            {{/each}}
+                            {% endverbatim %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="form-group">
+                        <label for="job_description">Job Description</label>
+                        {% verbatim %}
+                        <textarea class="form-control" id="description" name="description">{{job.description}}</textarea>
+                        {% endverbatim %}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label for="job_date">Date</label>
+                        {% verbatim %}
+                            <input class="form-control" id="job_date" name="job_date" value="{{job.jobDate}}">
+                        {% endverbatim %}
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                    <label for="mileage">Mileage</label>
+                    <select class="form-control" name="mileage" id="mileage">
+                        <option value="0">select mileage</option>
+                        {% verbatim %}
+                        {{#each mileage}}
+                        <option value="{{this.id}}" {{#if this.selected}}selected{{/if}} >{{this.value}}</option>
+                        {{/each}}
+                        {% endverbatim %}
+                    </select>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label for="job_start_time">Job Start Time</label>
+                        {% verbatim %}
+                        <input type="hidden" name="start_time" id="start_time" value="{{job.start_time}}">
+                        {% endverbatim %}
+                        <input class="form-control{% if job.startTime is null %} hidden{% endif %}" {% if job.startTime is not null %}disabled {% endif %}type="text" name="job_start_time" id="job_start_time" value="{% if job.startTime is defined %}{{ job.startTime }}{% endif %}">
+                        <button id="job_start_time_btn" class="btn btn-success form-control{% if job.startTime is not null %} hidden{% endif %}" type="button">Start Job</button>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label for="job_end_time">Job End Time</label>
+                        {% verbatim %}
+                        <input type="hidden" name="end_time" id="end_time" value="{{job.end_time}}">
+                        {% endverbatim %}
+                        <input class="form-control{% if job.endTime is null %} hidden{% endif %}" {% if job.endTime is not null %}disabled {% endif %}type="text" name="job_end_time" id="job_end_time" value="{% if job.endTime is defined %}{{ job.endTime }}{% endif %}">
+                        <button id="job_end_time_btn" class="btn btn-danger form-control{% if job.endTime is not null %} hidden{% endif %}" type="button">End Job</button>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="personnel">Personnel</label>
+                        <select class="form-control" multiple name="personnel[]" id="personnel">
+                            {% verbatim %}
+                            {{#each workers}}
+                                <option value="{{this.id}}" {{#if this.selected}}selected{{/if}} >{{this.firstname}} {{this.lastname}}</option>
+                            {{/each}}
+                            {% endverbatim %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label>Job Complete</label>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        {% verbatim %}
+                        <label for="job_complete_yes">Yes<input type="radio" id="job_complete_yes" name="job_complete" {{#if job.is_complete}}checked{{/if}} value="1"></label>
+                        <label for="job_complete_no">No<input type="radio" id="job_complete_no" name="job_complete" {{#unless job.is_complete}}checked{{/unless}} value="0"></label>
+                        {% endverbatim %}
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label>Parlour Test</label>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        {% verbatim %}
+                        <label for="parlour_test_yes">Yes<input type="radio" id="parlour_test_yes" name="parlour_test" {{#if job.parlour_test}}checked{{/if}} value="1"></label>
+                        <label for="parlour_test_no">No<input type="radio" id="parlour_test_no" name="parlour_test" {{#unless job.parlour_test}}checked{{/unless}} value="0"></label>                        
+                        {% endverbatim %}
+                    </div>
+                </div>
+            </div>
+            <div id="parts-table-container"></div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label for="notes">Notes and Extras required</label>
+                        <textarea class="form-control" name="notes" id="notes">{% verbatim %}{{job.notes}}{% endverbatim %}</textarea>
+                    </div>
+                </div>
+            </div>
+
+            {# % if job.isComplete == false % #}
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <button id="submit" name="submit" class="btn btn-primary pull-right" type="submit">Save</button>
+                    </div>
+                </div>
+            </div>
+            {# % endif % #}
+
+        </form>
+    </div>
+</script>
