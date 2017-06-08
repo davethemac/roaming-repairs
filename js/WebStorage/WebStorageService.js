@@ -123,10 +123,18 @@ var WebStorageService = function(key){
     };
 
     this.update = function(objects, key){
-        var deferred = $.Deferred(),
-                items = JSON.parse(localStorage[this.key]),
-                results = [],
-                l = items.length;
+        var deferred = $.Deferred();
+        // only try and parse json if there is some
+        if(localStorage[this.key]!==undefined){
+            items = JSON.parse(localStorage[this.key]);
+        }
+        if(items===undefined || Array.isArray(items)===false){
+            items = [];
+        }
+        
+        
+        var results = [], l = items.length;
+
         if(key===undefined){
             key = 'id';
         }
@@ -138,7 +146,7 @@ var WebStorageService = function(key){
             var keyValue = parseInt(objects[i][key]);
             for (var j = 0; j < l; j++) {
                 // search for the matching object
-                if (parseInt(items[j]['id']) === keyValue) {
+                if (parseInt(items[j][key]) === keyValue) {
                     // replace that object with this object
                     items[j] = objects[i];
                     append = false;
