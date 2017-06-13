@@ -6,16 +6,16 @@
  * and open the template in the editor.
  */
 
-namespace App\Provider;
+namespace App\Service;
 
 use App\Model\Worker;
 
 /**
- * Description of WorkerProvider
+ * Description of WorkerService
  *
- * @author david.mccart
+ * @author davethemac
  */
-class WorkerProvider extends AbstractObjectProvider{
+class WorkerService extends AbstractObjectService{
 
     protected function createObject(array $data) {
         return new Worker($data);

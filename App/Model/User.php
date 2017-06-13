@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * Description of User
  *
- * @author david.mccart
+ * @author davethemac
  */
 class User implements UserInterface{
 
@@ -32,39 +32,39 @@ class User implements UserInterface{
         $this->roles = $roles;
         $this->id = $id;
     }
-    
+
     public function getId() {
         return $this->id;
     }
-    
+
     public function setId($id) {
         $this->id = (int)$id;
         return $this;
     }
-    
+
     public function getRoles()
     {
         return $this->roles;
-    }    
+    }
 
     public function getSalt()
     {
     }
-    
+
     public function getUsername()
     {
         return $this->username;
     }
-        
+
     public function eraseCredentials()
     {
     }
-    
+
     public function getPassword()
     {
         return $this->password;
     }
-    
+
     public function setPassword($password) {
         $this->password = $password;
     }

@@ -11,13 +11,13 @@ namespace App\Model;
 /**
  * Description of Part
  *
- * @author david.mccart
+ * @author davethemac
  */
 class Part {
     private $id; // int
     private $partNumber; // probably a string, but could be an integer, you never know
     private $description;
-    
+
     public function __construct(array $data) {
 
         if(isset($data['id'])){

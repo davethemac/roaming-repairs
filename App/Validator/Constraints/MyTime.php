@@ -13,9 +13,9 @@ use Symfony\Component\Validator\Constraint;
 /**
  * Description of MyTime
  *
- * @author david.mccart
+ * @author davethemac
  */
 class MyTime  extends Constraint {
-    
+
     public $message = 'This value is not a valid time.';
 }

@@ -15,11 +15,11 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 /**
  * Description of UserController
  *
- * @author david.mccart
+ * @author davethemac
  */
 class UserController {
     //put your code here
-    
+
     public function login(Request $request, Application $app) {
         $data = array();
         $form = $app['form.factory']->createBuilder(FormType::class, $data)
@@ -30,7 +30,7 @@ class UserController {
         if($form->isValid()){
             // do login stuffs
         }
-        
+
         return $app['twig']->render('login.html.twig', array(
             //'form' => $form->createView(),
             'error' => $app['security.last_error']($request),
@@ -38,5 +38,5 @@ class UserController {
                 ));
         //return 'this is the login page';
     }
-    
+
 }

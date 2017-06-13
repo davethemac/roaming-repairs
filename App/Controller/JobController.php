@@ -15,15 +15,15 @@ use Symfony\Component\Validator\Constraints as Assert;
 use App\Validator\ChoiceInterface;
 use App\Validator\Constraints\MyDate;
 use App\Validator\Constraints\MyTime;
-use App\Provider\JobProvider;
-use App\Provider\PartUsedProvider;
+use App\Service\JobService;
+use App\Service\PartUsedService;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 
 /**
  * Description of JobController
  *
- * @author david.mccart
+ * @author davethemac
  */
 class JobController {
     //put your code here
@@ -172,7 +172,7 @@ class JobController {
         return $validator->validate($data, $constraint);
     }
 
-    protected function updateJob(JobProvider $provider, array $data){
+    protected function updateJob(JobService $provider, array $data){
         $job = $provider->getByReferenceNo($data['reference_no']);
         $job->setReferenceNo($data['reference_no'])
                 ->setCustomerId($data['customer'])
@@ -196,7 +196,7 @@ class JobController {
         return $job;
     }
 
-    protected function updatePartsUsed(PartUsedProvider $provider, array $data, $jobId){
+    protected function updatePartsUsed(PartUsedService $provider, array $data, $jobId){
         foreach($data as $part_used){
             $partUsed = $provider->get((int)$part_used['part_used_id']);
             $partUsed->setJobId($jobId)

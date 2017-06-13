@@ -6,30 +6,30 @@
  * and open the template in the editor.
  */
 
-namespace App\Provider;
+namespace App\Service;
 
 use App\Model\Customer;
 
 /**
- * Description of CustomerProvider
+ * Description of CustomerService
  *
- * @author david.mccart
+ * @author davethemac
  */
-class CustomerProvider extends AbstractObjectProvider{
-    
+class CustomerService extends AbstractObjectService{
+
     protected function createObject(array $data){
         return new Customer($data);
     }
-    
+
     public function persist($object){
-        
+
         // build sql
         if($object->getId()){
             $sql = 'UPDATE ' . $this->getTable() . ' SET customer_name = :name WHERE id = :id';
         }else{
             $sql = 'INSERT INTO ' . $this->getTable() . '(customer_name) VALUES(:name)';
         }
-     
+
         // prepare statement
         try{
             $stmt = $this->con->prepare($sql);
@@ -46,7 +46,7 @@ class CustomerProvider extends AbstractObjectProvider{
             echo $ex->getMessage() . __CLASS__ . '::' . __METHOD__ . ' in ' . __FILE__ . ': ' . __LINE__;
         }
     }
-    
+
     public function addTestCustomers(){
         $customers[] = $this->createObject(array('customer_name' => 'Sunny Meadows'));
         $customers[] = $this->createObject(array('customer_name' => 'Leafy Pasture'));
@@ -55,5 +55,5 @@ class CustomerProvider extends AbstractObjectProvider{
             $this->persist($customer);
         }
     }
-    
+
 }

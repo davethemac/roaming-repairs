@@ -10,7 +10,7 @@ namespace App\Validator;
 
 /**
  *
- * @author david.mccart
+ * @author davethemac
  */
 interface ChoiceInterface {
     public function getChoices();

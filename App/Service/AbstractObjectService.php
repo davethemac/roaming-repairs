@@ -6,25 +6,25 @@
  * and open the template in the editor.
  */
 
-namespace App\Provider;
+namespace App\Service;
 
 /**
- * Description of AbstractObjectProvider
+ * Description of AbstractObjectService
  *
- * @author david.mccart
+ * @author davethemac
  */
-abstract class AbstractObjectProvider {
+abstract class AbstractObjectService {
 
     /** @var \PDO */
     protected $con; // to hold the db connection
     protected $table; // to hold the name of the table
-    
+
     public function __construct(\PDO $con, $table) {
-        
+
         $this->con = $con;
         $this->table = $table;
     }
-    
+
     public function getAll(){
         // create generic sql query
         $sql = 'SELECT * FROM ' . $this->getTable();
@@ -44,7 +44,7 @@ abstract class AbstractObjectProvider {
                 return false;
             }elseif(count($result)===0){
                 // do some other kind of error handling
-                // since this condition represents normal program execution, 
+                // since this condition represents normal program execution,
                 // return the empty array
                 return $objects;
             }
@@ -54,14 +54,14 @@ abstract class AbstractObjectProvider {
                 $objects[] = $this->createObject($data);
             }
             return $objects;
-            
+
         } catch (\Exception $ex) {
             // the createObject call might throw an exception,
             // so catch all, not just PDOExceptions
             echo $ex->getMessage() . __CLASS__ . '::' . __METHOD__ . ' in ' . __FILE__ . ': ' . __LINE__;
         }
     }
-    
+
     public function get($id){
         // create generic sql query
         $sql = 'SELECT * FROM ' . $this->getTable() . ' WHERE id = ?';
@@ -84,19 +84,19 @@ abstract class AbstractObjectProvider {
             // for the result, create an object and stuff it with data
             // we don't know what kind of object to create
             return $this->createObject($data);
-            
+
         } catch (\Exception $ex) {
             echo $ex->getMessage() . __CLASS__ . '::' . __METHOD__ . ' in ' . __FILE__ . ': ' . __LINE__;
         }
     }
-    
+
     protected function getTable() {
         return $this->table;
     }
-    
+
     // just return a new object of whatever type we need
     abstract protected function createObject(array $data);
-    
+
     // for the given object, persist all its persistent properties to some database table
     abstract public function persist($object);
 }

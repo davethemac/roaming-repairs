@@ -6,31 +6,31 @@
  * and open the template in the editor.
  */
 
-namespace App\Provider;
+namespace App\Service;
 
 use App\Model\Part;
 use App\Validator\ChoiceInterface;
 
 /**
- * Description of PartProvider
+ * Description of PartService
  *
- * @author david.mccart
+ * @author davethemac
  */
-class PartProvider extends AbstractObjectProvider implements ChoiceInterface{
-    
+class PartService extends AbstractObjectService implements ChoiceInterface{
+
     protected function createObject(array $data) {
         return new Part($data);
     }
 
     public function persist($object) {
-        
+
         // build sql
         if($object->getId()){
             $sql = 'UPDATE ' . $this->getTable() . ' SET part_number = :part_number, description = :description WHERE id = :id';
         }else{
             $sql = 'INSERT INTO ' . $this->getTable() . '(part_number, description) VALUES(:part_number, :description)';
         }
-     
+
         // prepare statement
         try{
             $stmt = $this->con->prepare($sql);
@@ -47,9 +47,9 @@ class PartProvider extends AbstractObjectProvider implements ChoiceInterface{
         } catch (\PDOException  $ex) {
             echo $ex->getMessage() . __CLASS__ . '::' . __METHOD__ . ' in ' . __FILE__ . ': ' . __LINE__;
         }
-        
+
     }
-        
+
     public function addTestParts(){
         $parts[] = $this->createObject(array('part_number' => '01', 'description' => 'Widget'));
         $parts[] = $this->createObject(array('part_number' => '02', 'description' => 'Dongle'));
@@ -96,7 +96,7 @@ class PartProvider extends AbstractObjectProvider implements ChoiceInterface{
             // for the result, create an object and stuff it with data
             // we don't know what kind of object to create
             return $data['id'];
-            
+
         } catch (\Exception $ex) {
             echo $ex->getMessage() . __CLASS__ . '::' . __METHOD__ . ' in ' . __FILE__ . ': ' . __LINE__;
         }

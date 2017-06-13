@@ -14,10 +14,10 @@ use App\Model\PartUsed;
 /**
  * Description of Job
  *
- * @author david.mccart
+ * @author davethemac
  */
 class Job {
-    
+
     protected $id; // int
     protected $referenceNo; // int
     protected $customerId; // int
@@ -27,15 +27,14 @@ class Job {
     protected $startTime;
     protected $endTime;
     protected $isComplete; // bool
-    protected $parlourTest; // bool
     protected $notes;
     // associations
     protected $workerIds; // array of worker ids assigned to this job
     protected $personnel; // array of actual worker objects assigned to this job
-    protected $partsUsed; // array of part objects    
-    
+    protected $partsUsed; // array of part objects
+
     public function __construct(array $data) {
-        
+
         if(isset($data['id'])){
             $this->id = (int)$data['id'];
         }
@@ -63,9 +62,6 @@ class Job {
         if(isset($data['is_complete'])){
             $this->isComplete = (bool)$data['is_complete'];
         }
-        if(isset($data['parlour_test'])){
-            $this->parlourTest = (bool)$data['parlour_test'];
-        }
         if(isset($data['notes'])){
             $this->notes = $data['notes'];
         }
@@ -90,7 +86,7 @@ class Job {
     public function getJobDate() {
         return $this->jobDate;
     }
-    
+
     public function getMileage() {
         return $this->mileage;
     }
@@ -111,18 +107,14 @@ class Job {
         return $this->isComplete;
     }
 
-    public function getParlourTest() {
-        return $this->parlourTest;
-    }
-
     public function getPartsUsed() {
         return $this->partsUsed;
     }
-    
+
     public function getNotes() {
         return $this->notes;
     }
-    
+
     public function getWorkerIds() {
         return $this->workerIds;
     }
@@ -131,7 +123,7 @@ class Job {
         $this->id = (int)$id;
         return $this;
     }
-    
+
     public function setReferenceNo($referenceNo) {
         $this->referenceNo = (int)$referenceNo;
         return $this;
@@ -156,7 +148,7 @@ class Job {
         $this->jobDate = $jobDate;
         return $this;
     }
-    
+
     public function setMileage($mileage) {
         $this->mileage = (int)$mileage;
         return $this;
@@ -165,7 +157,7 @@ class Job {
     public function setStartTime($startTime) {
         if($startTime instanceof \DateTime){
             $this->startTime = $startTime;
-            return $this;            
+            return $this;
         }
         if(is_string($startTime) && strlen($startTime) > 0){
             $time = new \DateTime($startTime);
@@ -191,11 +183,6 @@ class Job {
         return $this;
     }
 
-    public function setParlourTest($parlourTest) {
-        $this->parlourTest = (bool)$parlourTest;
-        return $this;
-    }
-    
     public function setNotes($notes) {
         $this->notes = $notes;
         return $this;
@@ -218,7 +205,7 @@ class Job {
         $this->workerIds[] = $id;
         return $this;
     }
-    
+
     public function isWorkingOn($id){
         if(!is_array($this->workerIds)){
             // if no one is working on this job
@@ -239,12 +226,12 @@ class Job {
         $this->personnel[(string)$worker->getId()] = $worker;
         $this->addWorkerId($worker->getId());
     }
-    
+
     public function addPartUsed(PartUsed $partUsed){
         if(!is_array($this->partsUsed)){
             $this->partsUsed = array();
         }
         $this->partsUsed[(string)$partUsed->getId()] = $partUsed;
     }
-    
+
 }

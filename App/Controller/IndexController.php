@@ -14,20 +14,11 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Description of indexcontroller
  *
- * @author david.mccart
+ * @author davethemac
  */
 class IndexController {
     //put your code here
     public function index() {
         return 'hello';
-    }
-
-    public function test(Request $request, Application $app){
-        $data = [
-            'job' => ['partsUsed' => []],
-            'rules' => [],
-            'msgs' => []
-            ];
-        return $app['twig']->render('test.html.twig', $data);
     }
 }

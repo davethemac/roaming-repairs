@@ -14,10 +14,10 @@ use Symfony\Component\Validator\ConstraintValidator;
 /**
  * Description of MyDateValidator
  *
- * @author david.mccart
+ * @author davethemac
  */
 class MyDateValidator extends ConstraintValidator{
- 
+
     public function validate($value, Constraint $constraint) {
         try{
             $value = str_replace('/', '-', $value);
@@ -27,6 +27,6 @@ class MyDateValidator extends ConstraintValidator{
             $this->context->buildViolation($constraint->message)
                     ->addViolation();
         }
-            
+
     }
 }

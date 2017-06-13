@@ -17,7 +17,7 @@ use Swift_Attachment;
 /**
  * Description of PDFController
  *
- * @author david.mccart
+ * @author davethemac
  */
 class PDFController {
     //put your code here

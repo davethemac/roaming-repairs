@@ -5,7 +5,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-namespace App\Provider;
+namespace App\Service;
 
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -14,11 +14,11 @@ use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use App\Model\User;
 
 /**
- * Description of UserProvider
+ * Description of UserService
  *
- * @author david.mccart
+ * @author davethemac
  */
-class UserProvider extends AbstractObjectProvider implements UserProviderInterface {
+class UserService extends AbstractObjectService implements UserProviderInterface {
 
     private $encoder;
 
@@ -26,7 +26,7 @@ class UserProvider extends AbstractObjectProvider implements UserProviderInterfa
         $this->encoder = $encoder;
     }
 
-    // AbstractObjectProvider functions
+    // AbstractObjectService functions
     protected function createObject(array $data) {
         # possibly some of this crap could go in the actual object constructor?
         // set some default values
@@ -72,7 +72,7 @@ class UserProvider extends AbstractObjectProvider implements UserProviderInterfa
 
     }
 
-   // UserProviderInterface functions
+   // UserServiceInterface functions
     public function loadUserByUsername($username){
         //$this->addTestUser();
         $sql = 'SELECT * FROM ' . $this->getTable() . ' WHERE username = ?';

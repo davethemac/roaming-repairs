@@ -14,10 +14,10 @@ use Symfony\Component\Validator\ConstraintValidator;
 /**
  * Description of MyTimeValidator
  *
- * @author david.mccart
+ * @author davethemac
  */
 class MyTimeValidator extends ConstraintValidator{
-    
+
     public function validate($value, Constraint $constraint) {
         try{
             $time = strtotime($value);

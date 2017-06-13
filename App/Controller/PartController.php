@@ -14,10 +14,10 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Description of PartController
  *
- * @author david.mccart
+ * @author davethemac
  */
 class PartController {
-    
+
     public function index(Request $request, Application $app) {
         $json = array();
         $parts = $app['model.parts']->getAll();
@@ -30,5 +30,5 @@ class PartController {
         }
         return $app->json($json);
     }
-    
+
 }

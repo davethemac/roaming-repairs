@@ -13,10 +13,10 @@ use Symfony\Component\Validator\Constraint;
 /**
  * Description of MyDate
  *
- * @author david.mccart
+ * @author davethemac
  * @Annotation
  */
 class MyDate extends Constraint {
-    
+
     public $message = 'This value is not a valid date.';
 }

@@ -6,30 +6,30 @@
  * and open the template in the editor.
  */
 
-namespace App\Provider;
+namespace App\Service;
 
 use App\Model\Job;
-use App\Provider\PartUsedProvider;
-use App\Provider\WorkerProvider;
+use App\Service\PartUsedService;
+use App\Service\WorkerService;
 
 /**
- * Description of JobProvider
+ * Description of JobService
  *
  * N.B. these aren't strictly silex providers, more object managers
  *
- * @author david.mccart
+ * @author davethemac
  */
-class JobProvider extends AbstractObjectProvider {
+class JobService extends AbstractObjectService {
 
-    /** @var App\Provider\PartsUsedProvider */
-    private $partsUsedProvider;
-    /** @var App\Provider\WorkerProvider */
-    private $workerProvider;
+    /** @var App\Service\PartsUsedService */
+    private $partsUsedService;
+    /** @var App\Service\WorkerService */
+    private $workerService;
 
-    public function __construct(\PDO $con, $table, PartUsedProvider $partsUsedProvider, WorkerProvider $workerProvider) {
+    public function __construct(\PDO $con, $table, PartUsedService $partsUsedService, WorkerService $workerService) {
         parent::__construct($con, $table);
-        $this->partsUsedProvider = $partsUsedProvider;
-        $this->workerProvider = $workerProvider;
+        $this->partsUsedService = $partsUsedService;
+        $this->workerService = $workerService;
     }
 
     protected function createObject(array $data){
@@ -105,13 +105,13 @@ class JobProvider extends AbstractObjectProvider {
 
     // deferred methods
     public function getPartsUsed($jobId){
-        // defer to App\Provider\PartsUsedProvider
-        return $this->partsUsedProvider->getByJobId($jobId);
+        // defer to App\Service\PartsUsedService
+        return $this->partsUsedService->getByJobId($jobId);
     }
 
     public function getPersonel($jobId){
-        // defer to App\Provider\WorkerProvider
-        return $this->workerProvider->getByJobId($jobId);
+        // defer to App\Service\WorkerService
+        return $this->workerService->getByJobId($jobId);
     }
 
     public function getByReferenceNo($refNo){

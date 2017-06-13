@@ -6,32 +6,32 @@
  * and open the template in the editor.
  */
 
-namespace App\Provider;
+namespace App\Service;
 
 use App\Model\PartUsed;
-use App\Provider\PartProvider;
+use App\Service\PartService;
 
 /**
- * Description of PartUsedProvider
+ * Description of PartUsedService
  *
- * @author david.mccart
+ * @author davethemac
  */
-class PartUsedProvider extends AbstractObjectProvider{
-    
-    /** @var App\Provider\PartsUsedProvider */
-    protected $partProvider;
+class PartUsedService extends AbstractObjectService{
 
-    public function __construct(\PDO $con, $table, PartProvider $partProvider) {
+    /** @var App\Service\PartsUsedService */
+    protected $partService;
+
+    public function __construct(\PDO $con, $table, PartService $partService) {
         parent::__construct($con, $table);
-        $this->partProvider = $partProvider;
+        $this->partService = $partService;
     }
-    
+
     protected function createObject(array $data) {
         return new PartUsed($data);
     }
 
     public function persist($object) {
-        
+
         // build sql
         if($object->getId()){
             $sql = 'UPDATE ' . $this->getTable() . ' SET job_id = :job_id, part_id = :part_id, usage_description = :description, '
@@ -40,7 +40,7 @@ class PartUsedProvider extends AbstractObjectProvider{
             $sql = 'INSERT INTO ' . $this->getTable() . '(job_id, part_id, usage_description, quantity, office_data_a, office_data_b) '
                     . 'VALUES(:job_id, :part_id, :description, :quantity, :office_data_a, :office_data_b)';
         }
-     
+
         // prepare statement
         try{
             $stmt = $this->con->prepare($sql);
@@ -61,9 +61,9 @@ class PartUsedProvider extends AbstractObjectProvider{
         } catch (\PDOException  $ex) {
             echo $ex->getMessage() . __CLASS__ . '::' . __METHOD__ . ' in ' . __FILE__ . ': ' . __LINE__;
         }
-        
+
     }
-        
+
     public function getByJobId($jobId) {
         // create generic sql query
         $sql = 'SELECT ' . $this->getTable() . '.*, ' . $this->getJoinTable() .'.part_number FROM ' . $this->getCompoundTable() . ' WHERE job_id = :job_id';
@@ -84,7 +84,7 @@ class PartUsedProvider extends AbstractObjectProvider{
                 return false;
             }elseif(count($result)===0){
                 // do some other kind of error handling
-                // since this condition represents normal program execution, 
+                // since this condition represents normal program execution,
                 // return the empty array
                 return $objects;
             }
@@ -94,37 +94,37 @@ class PartUsedProvider extends AbstractObjectProvider{
                 $objects[] = $this->createObject($data);
             }
             return $objects;
-            
+
         } catch (\Exception $ex) {
             // the createObject call might throw an exception,
             // so catch all, not just PDOExceptions
             echo $ex->getMessage() . __CLASS__ . '::' . __METHOD__ . ' in ' . __FILE__ . ': ' . __LINE__;
         }
-        
+
     }
-        
+
     protected function getTable() {
         if(is_array($this->table)){
             return $this->table['table'];
         }
         return $this->table;
     }
-    
+
     protected function getCompoundTable(){
         if(is_array($this->table)){
-            return $this->table['table'] . ' LEFT JOIN ' . $this->table['join'] . 
-                    ' ON (' . $this->table['table'] . '.' . $this->table['foreign_key'] . 
+            return $this->table['table'] . ' LEFT JOIN ' . $this->table['join'] .
+                    ' ON (' . $this->table['table'] . '.' . $this->table['foreign_key'] .
                     '=' . $this->table['join'] . '.' . $this->table['references'] . ')';
         }
         return $this->table;
     }
-    
+
     protected function getJoinTable(){
         if(is_array($this->table)){
             return $this->table['join'];
         }
     }
-    
+
     public function getAll(){
         // create generic sql query
         $sql = 'SELECT ' . $this->getTable() . '.*, ' . $this->getJoinTable() .'.part_number FROM ' . $this->getCompoundTable();
@@ -144,7 +144,7 @@ class PartUsedProvider extends AbstractObjectProvider{
                 return false;
             }elseif(count($result)===0){
                 // do some other kind of error handling
-                // since this condition represents normal program execution, 
+                // since this condition represents normal program execution,
                 // return the empty array
                 return $objects;
             }
@@ -154,17 +154,17 @@ class PartUsedProvider extends AbstractObjectProvider{
                 $objects[] = $this->createObject($data);
             }
             return $objects;
-            
+
         } catch (\Exception $ex) {
             // the createObject call might throw an exception,
             // so catch all, not just PDOExceptions
             echo $ex->getMessage() . __CLASS__ . '::' . __METHOD__ . ' in ' . __FILE__ . ': ' . __LINE__;
         }
     }
-    
+
     public function get($id){
         // create generic sql query
-        $sql = 'SELECT ' . $this->getTable() . '.*, ' . $this->getJoinTable() .'.part_number FROM ' . 
+        $sql = 'SELECT ' . $this->getTable() . '.*, ' . $this->getJoinTable() .'.part_number FROM ' .
                 $this->getCompoundTable() . ' WHERE ' . $this->getTable() . '.id = ?';
         try{
             $stmt = $this->con->prepare($sql);
@@ -185,15 +185,15 @@ class PartUsedProvider extends AbstractObjectProvider{
             // for the result, create an object and stuff it with data
             // we don't know what kind of object to create
             return $this->createObject($data);
-            
+
         } catch (\Exception $ex) {
             echo $ex->getMessage() . __CLASS__ . '::' . __METHOD__ . ' in ' . __FILE__ . ': ' . __LINE__;
         }
     }
-        
+
     public function getPartIdFromPartNo($partNo) {
         // defer to part provider
-        return $this->partProvider->getPartIdFromPartNo($partNo);
+        return $this->partService->getPartIdFromPartNo($partNo);
     }
 
 }

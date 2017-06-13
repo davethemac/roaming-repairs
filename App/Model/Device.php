@@ -9,26 +9,22 @@
 namespace App\Model;
 
 /**
- * Description of Customer
+ * Description of Device
  *
  * @author davethemac
  */
-class Customer {
+class Device {
     //put your code here
     protected $id;
-    private $firstName;
-    private $lastName;
+    protected $name;
 
     public function __construct(array $data) {
 
         if(isset($data['id'])){
             $this->id = $data['id'];
         }
-        if(isset($data['first_name'])){
-            $this->firstName = $data['first_name'];
-        }
-        if(isset($data['last_name'])){
-            $this->lastName = $data['last_name'];
+        if(isset($data['device_name'])){
+            $this->name = $data['device_name'];
         }
 
     }
@@ -37,12 +33,8 @@ class Customer {
         return $this->id;
     }
 
-    public function getFirstName() {
-        return $this->firstName;
-    }
-
-    public function getLastName() {
-        return $this->lastName;
+    public function getName() {
+        return $this->name;
     }
 
     public function setId($id) {
@@ -50,13 +42,8 @@ class Customer {
         return $this;
     }
 
-    public function setFirstName($firstName) {
-        $this->firstName = $firstName;
-        return $this;
-    }
-
-    public function setLastName($lastName) {
-        $this->lastName = $lastName;
+    public function setName($name) {
+        $this->name = $name;
         return $this;
     }
 

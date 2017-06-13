@@ -11,14 +11,14 @@ namespace App\Model;
 /**
  * Description of Worker
  *
- * @author david.mccart
+ * @author davethemac
  */
 class Worker {
     //put your code here
     private $id; // int
     private $firstName;
     private $lastName;
-    
+
     public function __construct($data) {
 
         if(isset($data['id'])){
@@ -31,7 +31,7 @@ class Worker {
             $this->lastName = $data['last_name'];
         }
     }
-    
+
     public function getId() {
         return $this->id;
     }
