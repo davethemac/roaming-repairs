@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 /**
- * Author:  david.mccart
- * Created: 08-Jun-2016
+ * Author:  davethemac
+ * Created: 08-Jun-2017
  */
 
 DROP TABLE IF EXISTS rr_user;
@@ -15,15 +15,23 @@ CREATE TABLE rr_user(
     password VARCHAR(255), 
     roles VARCHAR(255),
     PRIMARY KEY(id)
-); -- maybe standard framework user entity
+);
 
 
 DROP TABLE IF EXISTS rr_customer;
 CREATE TABLE rr_customer(
     id INT NOT NULL AUTO_INCREMENT,
-    customer_name VARCHAR(255) UNIQUE, 
+    first_name VARCHAR(255), 
+    last_name VARCHAR(255), 
     PRIMARY KEY(id)
-); -- what detailos do they want?
+);
+
+DROP TABLE IF EXISTS rr_device;
+CREATE TABLE rr_device(
+    id INT NOT NULL AUTO_INCREMENT,
+    device_name VARCHAR(255) UNIQUE, 
+    PRIMARY KEY(id)
+);
 
 -- DROP TABLE IF EXISTS rr_location;
 -- CREATE TABLE rr_location(); -- possibly the same thing as customer, but its a dodgy assumption
@@ -44,31 +52,38 @@ CREATE TABLE rr_part(
     PRIMARY KEY(id)
 );
 
+DROP TABLE IF EXISTS rr_component;
+CREATE TABLE rr_component(
+    id INT NOT NULL AUTO_INCREMENT,
+    device_id INT NOT NULL, -- FK ref rr_job.id
+    part_id INT NOT NULL, -- FK ref rr_part.id
+    quantity INT NOT NULL DEFAULT 1,
+    PRIMARY KEY(id)
+);
+
 DROP TABLE IF EXISTS rr_job;
 CREATE TABLE rr_job(
     id INT NOT NULL AUTO_INCREMENT,
     reference_no INT NOT NULL,
     customer_id INT NOT NULL, -- FK ref rr_customer.id
+    device_id INT NOT NULL, -- FK ref rr_device.id
     description TEXT,
     job_date DATE,
     mileage INT,
     start_time TIME,
     end_time TIME,
     is_complete TINYINT NOT NULL DEFAULT 0,
-    parlour_test TINYINT NOT NULL DEFAULT 0,
     notes TEXT,
     PRIMARY KEY(id)
-); -- the primary entity recorded by the system
+);
 
 DROP TABLE IF EXISTS rr_partused;
 CREATE TABLE rr_partused(
     id INT NOT NULL AUTO_INCREMENT,
     job_id INT NOT NULL, -- FK ref rr_job.id
-    part_id INT NOT NULL, -- FK ref rr_part.id
+    component_id INT NOT NULL, -- FK ref rr_part.id
     usage_description VARCHAR(255), -- possibly redundant
-    quantity INT NOT NULL DEFAULT 0,
-    office_data_a VARCHAR(50),
-    office_data_b VARCHAR(50),
+    quantity INT NOT NULL DEFAULT 1,
     PRIMARY KEY(id)
 );
 
