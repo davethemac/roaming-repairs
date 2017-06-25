@@ -21,15 +21,24 @@ CREATE TABLE rr_user(
 DROP TABLE IF EXISTS rr_customer;
 CREATE TABLE rr_customer(
     id INT NOT NULL AUTO_INCREMENT,
-    first_name VARCHAR(255), 
-    last_name VARCHAR(255), 
+    firstName VARCHAR(255), 
+    lastName VARCHAR(255), 
     PRIMARY KEY(id)
 );
 
 DROP TABLE IF EXISTS rr_device;
 CREATE TABLE rr_device(
     id INT NOT NULL AUTO_INCREMENT,
-    device_name VARCHAR(255) UNIQUE, 
+    deviceName VARCHAR(255) UNIQUE, 
+    PRIMARY KEY(id)
+);
+
+DROP TABLE IF EXISTS rr_customer_device;
+CREATE TABLE rr_customer_device(
+    id INT NOT NULL AUTO_INCREMENT,
+    customerId INT NOT NULL, -- FK ref rr_customer.id
+    deviceId INT NOT NULL, -- FK ref rr_device.id
+    quantity INT NOT NULL DEFAULT 1,
     PRIMARY KEY(id)
 );
 
@@ -39,40 +48,39 @@ CREATE TABLE rr_device(
 DROP TABLE IF EXISTS rr_worker;
 CREATE TABLE rr_worker(
     id INT NOT NULL AUTO_INCREMENT,
-    first_name VARCHAR(255), 
-    last_name VARCHAR(255), 
+    firstName VARCHAR(255), 
+    lastName VARCHAR(255), 
     PRIMARY KEY(id)
 ); -- could just be a list of names, def relation to user
 
 DROP TABLE IF EXISTS rr_part;
 CREATE TABLE rr_part(
     id INT NOT NULL AUTO_INCREMENT,
-    part_number VARCHAR(20), 
+    partNumber VARCHAR(20), 
     description VARCHAR(255), 
     PRIMARY KEY(id)
 );
 
 DROP TABLE IF EXISTS rr_component;
 CREATE TABLE rr_component(
-    id INT NOT NULL AUTO_INCREMENT,
-    device_id INT NOT NULL, -- FK ref rr_job.id
-    part_id INT NOT NULL, -- FK ref rr_part.id
+    deviceId INT NOT NULL, -- FK ref rr_job.id
+    partId INT NOT NULL, -- FK ref rr_part.id
     quantity INT NOT NULL DEFAULT 1,
-    PRIMARY KEY(id)
+    PRIMARY KEY(deviceId, partId)
 );
 
 DROP TABLE IF EXISTS rr_job;
 CREATE TABLE rr_job(
     id INT NOT NULL AUTO_INCREMENT,
-    reference_no INT NOT NULL,
-    customer_id INT NOT NULL, -- FK ref rr_customer.id
-    device_id INT NOT NULL, -- FK ref rr_device.id
+    referenceNo INT NOT NULL,
+    customerId INT NOT NULL, -- FK ref rr_customer.id
+    deviceId INT NOT NULL, -- FK ref rr_device.id
     description TEXT,
-    job_date DATE,
+    jobDate DATE,
     mileage INT,
-    start_time TIME,
-    end_time TIME,
-    is_complete TINYINT NOT NULL DEFAULT 0,
+    startTime TIME,
+    endTime TIME,
+    isComplete TINYINT NOT NULL DEFAULT 0,
     notes TEXT,
     PRIMARY KEY(id)
 );
@@ -80,16 +88,16 @@ CREATE TABLE rr_job(
 DROP TABLE IF EXISTS rr_partused;
 CREATE TABLE rr_partused(
     id INT NOT NULL AUTO_INCREMENT,
-    job_id INT NOT NULL, -- FK ref rr_job.id
-    component_id INT NOT NULL, -- FK ref rr_part.id
-    usage_description VARCHAR(255), -- possibly redundant
+    jobId INT NOT NULL, -- FK ref rr_job.id
+    partId INT NOT NULL, -- FK ref rr_part.id
+    usageDescription VARCHAR(255), -- possibly redundant
     quantity INT NOT NULL DEFAULT 1,
     PRIMARY KEY(id)
 );
 
 DROP TABLE IF EXISTS rr_job_worker;
 CREATE TABLE rr_job_worker(
-    job_id INT NOT NULL, -- FK ref rr_job.id
-    worker_id INT NOT NULL, -- FK ref rr_worker.id
-    PRIMARY KEY (job_id, worker_id)
+    jobId INT NOT NULL, -- FK ref rr_job.id
+    workerId INT NOT NULL, -- FK ref rr_worker.id
+    PRIMARY KEY (jobId, workerId)
 );

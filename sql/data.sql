@@ -14,8 +14,10 @@ INSERT INTO `rr_part` VALUES (1,'01','Widget'),(2,'02','Dongle'),(3,'03','Geegaw
 
 INSERT INTO `rr_device` VALUES (1, 'Basic Device'), (2, 'Advanced Device'), (3, 'Modified Device');
 
-INSERT INTO `rr_component` VALUES (1, 1, 1, 1), (2, 1, 2, 1), (3, 1, 3, 1), (4, 2, 4, 1), (5, 2, 5, 1), (6, 2, 6, 1), (7, 3, 7, 1), (8, 3, 8, 1), (9, 3, 9, 1);
+INSERT INTO `rr_component` VALUES (1, 1, 1), (1, 2, 1), (1, 3, 1), (2, 4, 1), (2, 5, 1), (2, 6, 1), (3, 7, 1), (3, 8, 1), (3, 9, 1);
 
 INSERT INTO `rr_user` VALUES (1,'test','$2y$13$g1Zeb8OnxICfPv0A8FJXh.RwYNqtzKs/.Nkp1qK6jrvY3c9ytLpaC','ROLE_USER');
 
 INSERT INTO `rr_worker` VALUES (1,'Fred','Flintstone'),(2,'Barney','Rubble'),(3,'Zaphod','Breeblebrox');
+
+INSERT INTO `rr_customer_device` VALUES (1, 1, 1, 1), (2, 2, 2, 1), (3, 3, 3, 1);
