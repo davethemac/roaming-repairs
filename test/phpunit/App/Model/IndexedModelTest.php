@@ -18,7 +18,7 @@ use App\Model\IndexedModel;
  */
 class IndexedModelTest extends TestCase {
 
-    use TestIndexAttribute;
+    use TestPositiveIntegerAttribute;
     //use TestIndexAttributeUserFunc;
     /**
      * @var IndexedModel
@@ -51,7 +51,7 @@ class IndexedModelTest extends TestCase {
      */
     public function testGetId() {
         // use TestIndexAttribute trait
-        $this->getIndexTest('id');
+        $this->getPositiveIntegerTest('id');
     }
 
     /**
@@ -60,7 +60,7 @@ class IndexedModelTest extends TestCase {
      */
     public function testSetId() {
         // use TestIndexAttribute trait
-        $this->setIndexTest('id');
+        $this->setPositiveIntegerTest('id');
     }
 
     /**

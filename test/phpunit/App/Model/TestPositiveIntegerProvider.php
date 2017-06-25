@@ -15,7 +15,7 @@ namespace App\Model;
  *
  * @author davethemac
  */
-trait TestIndexProvider {
+trait TestPositiveIntegerProvider {
 
     /**
      * Provides set of values to cause integer type error

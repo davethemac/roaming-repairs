@@ -9,6 +9,8 @@ use PHPUnit\Framework\TestCase;
  */
 class ComponentTest extends TestCase {
 
+    use TestPositiveIntegerAttribute;
+
     /**
      * @var Component
      */
@@ -20,7 +22,9 @@ class ComponentTest extends TestCase {
      */
     protected function setUp() {
         $this->data = [
-            'id' => 1
+            'deviceId' => 1,
+            'partId' => 1,
+            'quantity' => 1
         ];
         $this->object = new Component($this->data);
         //$this->object = new Component();
@@ -36,35 +40,26 @@ class ComponentTest extends TestCase {
 
     /**
      * @covers App\Model\Component::getDeviceId
-     * @todo   Implement testGetDeviceId().
      */
     public function testGetDeviceId() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        // use TestIndexAttribute trait
+        $this->getPositiveIntegerTest('deviceId');
     }
 
     /**
      * @covers App\Model\Component::getPartId
-     * @todo   Implement testGetPartId().
      */
     public function testGetPartId() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        // use TestIndexAttribute trait
+        $this->getPositiveIntegerTest('partId');
     }
 
     /**
      * @covers App\Model\Component::getQuantity
-     * @todo   Implement testGetQuantity().
      */
     public function testGetQuantity() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        // use TestIndexAttribute trait
+        $this->getPositiveIntegerTest('quantity');
     }
 
     /**
@@ -72,10 +67,26 @@ class ComponentTest extends TestCase {
      * @todo   Implement testSetDeviceId().
      */
     public function testSetDeviceId() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        // use TestIndexAttribute trait
+        $this->setPositiveIntegerTest('deviceId');
+    }
+
+    /**
+    * @covers App\Model\Component::setDeviceId
+    * @dataProvider integerTypeErrorProvider
+    */
+    public function testSetDeviceIdTypeError($parameter) {
+       // use TestIndexAttribute trait
+       $this->setIntegerTypeErrorTest($parameter, 'deviceId');
+    }
+
+    /**
+     * @covers App\Model\Component::setDeviceId
+     * @dataProvider invalidIndexProvider
+     */
+    public function testSetDeviceIdInvalidParameter($parameter) {
+        // use TestIndexAttribute trait
+        $this->setInvalidIndexTest($parameter, 'id');
     }
 
     /**
@@ -83,10 +94,8 @@ class ComponentTest extends TestCase {
      * @todo   Implement testSetPartId().
      */
     public function testSetPartId() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        // use TestIndexAttribute trait
+        $this->setPositiveIntegerTest('partId');
     }
 
     /**
@@ -95,9 +104,8 @@ class ComponentTest extends TestCase {
      */
     public function testSetQuantity() {
         // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        // use TestIndexAttribute trait
+        $this->setPositiveIntegerTest('quantity');
     }
 
 }

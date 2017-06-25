@@ -17,7 +17,7 @@ use App\Model\Person;
  * @author david
  */
 class PersonTest extends IndexedModelTest {
-    //put your code here
+    use TestNameAttribute;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -45,12 +45,8 @@ class PersonTest extends IndexedModelTest {
      * @todo   Implement testGetFirstName().
      */
     public function testGetFirstName() {
-        // assert attribute exists in object
-        $this->assertClassHasAttribute('firstName', get_class($this->object));
-        // assert attribute exists
-        $this->assertObjectHasAttribute('firstName', $this->object);
-        // assert attribute has expected type and value
-        $this->assertSame($this->data['firstName'], $this->object->getFirstName());
+        // use TestNameAttribute trait
+        $this->getNameTest('firstName');
     }
 
     /**
@@ -58,24 +54,17 @@ class PersonTest extends IndexedModelTest {
      * @todo   Implement testGetLastName().
      */
     public function testGetLastName() {
-        // assert attribute exists in object
-        $this->assertClassHasAttribute('lastName', get_class($this->object));
-        // assert attribute exists
-        $this->assertObjectHasAttribute('lastName', $this->object);
-        // assert attribute has expected type and value
-        $this->assertSame($this->data['lastName'], $this->object->getLastName());
-    }
+        // use TestNameAttribute trait
+         $this->getNameTest('lastName');
+   }
 
     /**
      * @covers ::setFirstName
      * @todo   Implement testSetFirstName().
      */
     public function testSetFirstName() {
-        $data = 'Paul';
-        // test fluent interface
-        $this->assertEquals($this->object, $this->object->setFirstName($data));
-        // test object value
-        $this->assertEquals($data, $this->object->getFirstName());
+        // use TestNameAttribute trait
+        $this->setNameTest('firstName');
     }
 
     /**
@@ -83,11 +72,8 @@ class PersonTest extends IndexedModelTest {
      * @todo   Implement testSetLastName().
      */
     public function testSetLastName() {
-        $data = 'Jones';
-        // test fluent interface
-        $this->assertEquals($this->object, $this->object->setLastName($data));
-        // test object value
-        $this->assertEquals($data, $this->object->getLastName());
-    }
+        // use TestNameAttribute trait
+        $this->setNameTest('lastName');
+   }
 
 }

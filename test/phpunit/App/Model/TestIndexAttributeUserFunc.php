@@ -16,7 +16,7 @@ namespace App\Model;
  * @author davethemac
  */
 trait TestIndexAttributeUserFunc {
-    use TestIndexProvider;
+    use TestPositiveIntegerProvider;
 
     /**
      * Summary of getIndexTest

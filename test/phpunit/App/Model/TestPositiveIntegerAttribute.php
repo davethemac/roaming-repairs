@@ -15,8 +15,8 @@ namespace App\Model;
  *
  * @author davethemac
  */
-trait TestIndexAttribute {
-    use TestIndexProvider;
+trait TestPositiveIntegerAttribute {
+    use TestPositiveIntegerProvider;
 
     /**
      * Summary of getIndexTest
@@ -24,7 +24,7 @@ trait TestIndexAttribute {
      * @param str $name Name of the attribute
      * @param str $getter Getter method for the attribute
      */
-    public function getIndexTest($name, $getter = null) {
+    public function getPositiveIntegerTest($name, $getter = null) {
 
         // set the getter method by naming convention if no specific method supplied
         if(is_null($getter)){
@@ -48,7 +48,7 @@ trait TestIndexAttribute {
      * @param str $getter Getter method for the attribute
      * @param str $setter Setter method for the attribute
      */
-    public function setIndexTest($name, $getter = null, $setter = null) {
+    public function setPositiveIntegerTest($name, $getter = null, $setter = null) {
 
         // set the getter method by naming convention if no specific method supplied
         if(is_null($getter)){
