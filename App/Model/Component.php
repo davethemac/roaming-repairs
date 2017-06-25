@@ -29,11 +29,11 @@ class Component {
 
     public function __construct(array $data) {
 
-        if(isset($data['device_id'])){
-            $this->deviceId = (int)$data['device_id'];
+        if(isset($data['deviceId'])){
+            $this->deviceId = (int)$data['deviceId'];
         }
-        if(isset($data['part_id'])){
-            $this->partId = (int)$data['part_id'];
+        if(isset($data['partId'])){
+            $this->partId = (int)$data['partId'];
         }
         if(isset($data['quantity'])){
             $this->quantity = (int)$data['quantity'];

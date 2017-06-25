@@ -24,11 +24,11 @@ class Worker {
         if(isset($data['id'])){
             $this->id = $data['id'];
         }
-        if(isset($data['first_name'])){
-            $this->firstName = $data['first_name'];
+        if(isset($data['firstName'])){
+            $this->firstName = $data['firstName'];
         }
-        if(isset($data['last_name'])){
-            $this->lastName = $data['last_name'];
+        if(isset($data['lastName'])){
+            $this->lastName = $data['lastName'];
         }
     }
 
@@ -44,7 +44,7 @@ class Worker {
         return $this->lastName;
     }
 
-    public function setId($id) {
+    public function setId(int $id) {
         $this->id = (int)$id;
         return $this;
     }

@@ -23,8 +23,8 @@ class Device {
         if(isset($data['id'])){
             $this->id = $data['id'];
         }
-        if(isset($data['device_name'])){
-            $this->name = $data['device_name'];
+        if(isset($data['name'])){
+            $this->name = $data['name'];
         }
 
     }
