@@ -37,7 +37,7 @@ class Device {
         return $this->name;
     }
 
-    public function setId($id) {
+    public function setId(int $id) {
         $this->id = (int)$id;
         return $this;
     }

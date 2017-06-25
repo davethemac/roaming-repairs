@@ -22,7 +22,6 @@ namespace App\Model;
  */
 class Component {
     //put your code here
-    private $id; // int
     private $deviceId; // int
     private $partId; // int
     private $quantity; // int
@@ -30,9 +29,6 @@ class Component {
 
     public function __construct(array $data) {
 
-        if(isset($data['id'])){
-            $this->id = (int)$data['id'];
-        }
         if(isset($data['device_id'])){
             $this->deviceId = (int)$data['device_id'];
         }
@@ -42,10 +38,6 @@ class Component {
         if(isset($data['quantity'])){
             $this->quantity = (int)$data['quantity'];
         }
-    }
-
-    public function getId() {
-        return $this->id;
     }
 
     public function getDeviceId() {
@@ -58,11 +50,6 @@ class Component {
 
     public function getQuantity() {
         return $this->quantity;
-    }
-
-    public function setId($id) {
-        $this->id = $id;
-        return $this;
     }
 
     public function setDeviceId($deviceId) {

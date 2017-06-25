@@ -22,7 +22,7 @@ class User implements UserInterface{
     private $password;
     private $roles;
 
-    public function __construct($username, $password = null, $id = null, array $roles = array())
+    public function __construct($username, $password = null, $id = null, array $roles = [])
     {
         if ('' === $username || null === $username) {
             throw new \InvalidArgumentException('The username cannot be empty.');
@@ -37,7 +37,7 @@ class User implements UserInterface{
         return $this->id;
     }
 
-    public function setId($id) {
+    public function setId(int $id) {
         $this->id = (int)$id;
         return $this;
     }

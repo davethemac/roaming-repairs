@@ -23,8 +23,8 @@ class Part {
         if(isset($data['id'])){
             $this->id = $data['id'];
         }
-        if(isset($data['part_number'])){
-            $this->partNumber = $data['part_number'];
+        if(isset($data['partNumber'])){
+            $this->partNumber = $data['partNumber'];
         }
         if(isset($data['description'])){
             $this->description = $data['description'];
@@ -43,7 +43,7 @@ class Part {
         return $this->description;
     }
 
-    public function setId($id) {
+    public function setId(int $id) {
     $this->id = (int)$id;
     return $this;
     }
