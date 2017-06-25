@@ -7,4 +7,4 @@
  */
 
 
-// define configuration specfic for production
+// define configuration specfic for testing
