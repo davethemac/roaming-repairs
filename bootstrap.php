@@ -13,3 +13,13 @@ date_default_timezone_set('Europe/London');
 $loader = require ROOT.'/vendor/autoload.php';
 // add the app folder
 $loader->add('App', ROOT);
+// are we testing
+if($_ENV['APP_ENV']==='testing'){ // INPUT_ENV not working
+    $loader->add('App', ROOT.'/test/phpunit');
+} //*/
+/* are we testing ?
+if(filter_input(INPUT_ENV, 'APP_ENV', FILTER_SANITIZE_STRING)==='testing'){
+    // add the app test folder
+    $loader->add('App', ROOT.'/test/phpunit');
+}
+// */
